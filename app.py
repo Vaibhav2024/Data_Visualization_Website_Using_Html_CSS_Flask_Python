@@ -181,9 +181,11 @@ def visualize():
                 buf = io.BytesIO()
                 plt.savefig(buf, format='png')
                 buf.seek(0)
-                plot_url = base64.b64encode(buf.getvalue()).decode('utf-8')
+                plot_data = buf.getvalue()
                 buf.close()
                 plt.close()
+
+                plot_url = base64.b64encode(plot_data).decode('utf-8')
 
                 return render_template('visualize.html', plot_url=plot_url)
 
@@ -192,18 +194,33 @@ def visualize():
 
     return render_template('visualize.html')
 
-@app.route('/download_plot')
+@app.route("/download", methods=["POST"])
+def download():
+    csv_data = request.form.get("csv_data")
+
+    return send_file(
+        io.BytesIO(csv_data.encode()),
+        mimetype="text/csv",
+        as_attachment=True,
+        download_name="table.csv"
+    )
+
+@app.route('/download_plot', methods=['GET'])
 def download_plot():
     plot_url = request.args.get('plot_url')
-    
     if not plot_url:
         return "No plot URL provided.", 400
 
-    try:
-        img_data = base64.b64decode(plot_url)
-        return send_file(io.BytesIO(img_data), mimetype='image/png', as_attachment=True, attachment_filename='plot.png')
-    except Exception as e:
-        return f"An error occurred: {str(e)}", 500
+    # Decode the base64 plot image
+    plot_data = base64.b64decode(plot_url)
+
+    return send_file(
+        io.BytesIO(plot_data),
+        mimetype='image/png',
+        as_attachment=True,
+        download_name='plot.png'
+    )
+
 
 if __name__ == '__main__':
     app.run(debug=True)

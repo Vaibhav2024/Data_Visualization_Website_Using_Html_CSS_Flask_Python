@@ -94,6 +94,7 @@
             {% if plot_url %}
             <h3 class="text-center">Generated Plot:</h3>
             <img src="data:image/png;base64,{{ plot_url }}" alt="Generated Plot">
+            <a href="/download_plot?plot_url={{ plot_url }}" class="btn btn-custom mt-3" style="display:inline-block; padding:10px 20px; text-decoration:none; background-color:#28a745; color:white; border-radius:5px;">Download Plot</a>
             {% endif %}
         </div>
     </div>
