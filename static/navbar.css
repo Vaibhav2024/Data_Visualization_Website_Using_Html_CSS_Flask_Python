@@ -1,0 +1,65 @@
+/* Navbar Styles */
+.header {
+    background: #F4F4F4;
+    padding: 10px 0;
+    position: fixed;
+    top: 10px; /* Adjusted to be visible at the top */
+    right: 20px; /* Adjusted to fit better on the right side */
+    width: auto; /* Adjust width to fit content */
+    z-index: 1000; /* Ensure the navbar is above other content */
+}
+
+.navbar-container {
+    background: transparent; /* Ensure the background is transparent */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    max-width: 1200px; /* Limit width to prevent stretching */
+    margin: 0; /* Remove auto margin to prevent centering */
+}
+
+.logo {
+    margin-right: auto; /* Push logo to the left */
+}
+
+nav {
+    text-align: right; /* Align navigation to the right */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align menu items to the right */
+}
+
+nav ul li {
+    margin-left: 20px; /* Space out the menu items */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+
+.menu-icon {
+    display: none; /* Hide the menu icon by default */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation links */
+    }
+}

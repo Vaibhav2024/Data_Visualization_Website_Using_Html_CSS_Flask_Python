@@ -8,8 +8,25 @@
     <meta http-equiv="Expires" content="0">
     <title>Table Extractor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 </head>
 <body>
+    <!-- Navbar -->
+    <div class="header">
+        <div class="navbar-container"> <!-- Changed class name -->
+            <div class="navbar">
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="#">Data Extraction</a></li>
+                        <li><a href="products.html">Data Cleaning</a></li>
+                        <li><a href="/visualize">Data Visualization</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
         <h1>Extract Table from Website or CSV File</h1>
         <form method="POST" enctype="multipart/form-data">
@@ -35,10 +52,6 @@
         <form method="POST" action="/download">
             <input type="hidden" name="csv_data" value="{{ csv_data.getvalue() }}">
             <button type="submit">Download CSV</button>
-        </form>
-
-        <form method="GET" action="/visualize">
-            <button type="submit">Perform Data Visualization Operation</button>
         </form>
         {% endif %}
     </div>
