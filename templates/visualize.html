@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='visualize.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form action="/visualize" method="POST" enctype="multipart/form-data">
+            <label for="plot_type">Select Plot Type:</label>
+            <select name="plot_type" id="plot_type">
+                <option value="line_plot">Line plot</option>
+                <option value="bar_plot">Bar plot</option>
+                <option value="histogram">Histogram</option>
+                <option value="scatter_plot">Scatter plot</option>
+                <option value="pie_chart">Pie chart</option>
+                <option value="box_plot">Box plot</option>
+                <option value="violin_plot">Violin plot</option>
+                <option value="kde">Kernel density estimator</option>
+                <option value="pair_plot">Pair plot</option>
+                <option value="heatmap">Heatmap</option>
+                <option value="count_plot">Count plot</option>
+            </select>
+
+            <div id="file-upload-container">
+                <label for="csv_file">Upload CSV File:</label>
+                <input type="file" name="csv_file" id="csv_file" accept=".csv" onchange="uploadFile()">
+                
+                <div id="data-preview">
+                    <!-- Data table will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div id="plot-options">
+                <label for="x_column">X-axis Column Name:</label>
+                <input type="text" id="x_column" name="x_column" placeholder="Enter X-axis column name">
+                
+                <label for="y_column">Y-axis Column Name:</label>
+                <input type="text" id="y_column" name="y_column" placeholder="Enter Y-axis column name">
+
+                <label for="color">Color (optional):</label>
+                <input type="text" id="color" name="color" placeholder="Enter color">
+
+                <button type="submit">Generate Plot</button>
+            </div>
+        </form>
+
+        <div id="plot-container">
+            {% if plot_url %}
+                <div class="plot-wrapper">
+                    <img id="plot-image" src="data:image/png;base64,{{ plot_url }}" alt="Plot">
+                    <button class="close-btn" onclick="hidePlot()">×</button>
+                    <a id="download-btn" href="data:image/png;base64,{{ plot_url }}" download="plot.png">
+                        <button>Download Plot</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function hidePlot() {
+            document.querySelector('#plot-container').style.display = 'none';
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('csv_file');
+            const dataPreview = document.getElementById('data-preview');
+            const file = fileInput.files[0];
+
+            if (file && file.type === 'text/csv') {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const csvData = event.target.result;
+                    const rows = csvData.split('\n').map(row => row.split(','));
+
+                    let html = '<table><thead><tr>';
+                    // Add table headers
+                    rows[0].forEach(header => {
+                        html += `<th>${header}</th>`;
+                    });
+                    html += '</tr></thead><tbody>';
+
+                    // Add table rows
+                    for (let i = 1; i < rows.length; i++) {
+                        html += '<tr>';
+                        rows[i].forEach(cell => {
+                            html += `<td>${cell}</td>`;
+                        });
+                        html += '</tr>';
+                    }
+                    html += '</tbody></table>';
+
+                    dataPreview.innerHTML = html;
+                    document.getElementById('plot-options').style.display = 'block';
+                };
+
+                reader.readAsText(file);
+            } else {
+                dataPreview.innerHTML = 'Please upload a valid CSV file.';
+                document.getElementById('plot-options').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

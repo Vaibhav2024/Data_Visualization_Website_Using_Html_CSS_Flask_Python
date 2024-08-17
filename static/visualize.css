@@ -1,0 +1,142 @@
+/* Basic reset and styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styling */
+form {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Styling for select box */
+select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling for input fields */
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Data preview styling */
+#data-preview {
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+/* Plot container styling */
+#plot-container {
+    margin-top: 20px;
+    position: relative;
+}
+
+/* Plot image styling */
+#plot-container img {
+    max-width: calc(100% - 200px); /* Reduce width by approximately 200 pixels */
+    height: auto;
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+/* Close button styling */
+.plot-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Hide elements initially */
+#plot-options {
+    display: none;
+}
+
+/* Spacing */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Add a 1 cm gap between select box and button */
+#plot-options {
+    margin-top: 1cm;
+}
