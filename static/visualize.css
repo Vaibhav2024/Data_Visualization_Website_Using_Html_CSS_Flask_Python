@@ -3,58 +3,95 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-color: #f4f4f4;
-    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Container styling */
 .container {
-    max-width: 1200px;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Form styling */
 form {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="file"], select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#plot-container {
+    margin-top: 20px;
     position: relative;
 }
 
-/* Styling for select box */
-select {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+.plot-wrapper {
+    position: relative;
+}
+
+#plot-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-/* Styling for input fields */
-input[type="text"],
-input[type="file"] {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    font-size: 18px;
 }
 
-/* Data preview styling */
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+#download-btn {
+    display: block;
+    margin-top: 10px;
+}
+
 #data-preview {
-    max-height: 300px; /* Adjust height as needed */
+    max-height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #ffffff;
 }
 
 table {
@@ -62,81 +99,61 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
 th, td {
     padding: 10px;
+    border: 1px solid #ddd;
     text-align: left;
 }
 
+thead {
+    background-color: #f9f9f9;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+#data-preview {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
 th {
-    background-color: #f4f4f4;
+    background-color: #f2f2f2;
 }
 
-/* Plot container styling */
 #plot-container {
-    margin-top: 20px;
     position: relative;
-}
-
-/* Plot image styling */
-#plot-container img {
-    max-width: calc(100% - 200px); /* Reduce width by approximately 200 pixels */
-    height: auto;
-    margin: 0 auto; /* Center the image horizontally */
-}
-
-/* Close button styling */
-.plot-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
     text-align: center;
-    line-height: 30px;
-    font-size: 20px;
-    color: #333;
+}
+
+#plot_image {
+    max-width: 80%;
+    max-height: 80vh;
+}
+
+#close_plot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
     cursor: pointer;
-    z-index: 10;
-}
-
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-}
-
-/* Hide elements initially */
-#plot-options {
-    display: none;
-}
-
-/* Spacing */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Add a 1 cm gap between select box and button */
-#plot-options {
-    margin-top: 1cm;
 }
