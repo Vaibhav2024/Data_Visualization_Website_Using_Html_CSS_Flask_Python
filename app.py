@@ -8,6 +8,7 @@ import seaborn as sns
 import base64
 
 app = Flask(__name__)
+dataframe = None
 
 def fetch_table(url, column_name=None):
     # Fetch the webpage
@@ -221,6 +222,65 @@ def download_plot():
         download_name='plot.png'
     )
 
+
+@app.route("/data_cleaning", methods=["GET", "POST"])
+def data_cleaning():
+    global dataframe
+    df_html = None
+    csv_data = None
+    
+    if request.method == "POST":
+        if 'file' in request.files and request.files['file'].filename:
+            file = request.files['file']
+            if file and file.filename.endswith('.csv'):
+                try:
+                    dataframe = pd.read_csv(file)
+                    # Replace 'none' strings with actual NaN values
+                    dataframe.replace('none', pd.NA, inplace=True)
+                    
+                    df_html = dataframe.to_html(classes="table table-striped", index=False)
+                    
+                    # Convert dataframe to CSV for download
+                    csv_buffer = io.StringIO()
+                    dataframe.to_csv(csv_buffer, index=False)
+                    csv_data = csv_buffer.getvalue()  # Convert to string
+                except Exception as e:
+                    return f"An error occurred: {str(e)}"
+
+        elif request.form.get('action') == 'remove_null_rows':
+            if dataframe is not None:
+                # Remove rows where any cell has NaN value (including 'none' replaced with NaN)
+                dataframe.dropna(inplace=True)
+                df_html = dataframe.to_html(classes="table table-striped", index=False)
+                csv_buffer = io.StringIO()
+                dataframe.to_csv(csv_buffer, index=False)
+                csv_data = csv_buffer.getvalue()
+        
+        elif request.form.get('action') == 'replace_null_with_mean':
+            if dataframe is not None:
+                # Calculate mean of numeric columns only
+                df_mean = dataframe.mean(numeric_only=True)
+                # Replace NaN values with column mean
+                dataframe.fillna(df_mean, inplace=True)
+                df_html = dataframe.to_html(classes="table table-striped", index=False)
+                csv_buffer = io.StringIO()
+                dataframe.to_csv(csv_buffer, index=False)
+                csv_data = csv_buffer.getvalue()
+        
+        elif request.form.get('action') == 'remove_duplicates':
+            if dataframe is not None:
+                # Remove duplicate rows
+                dataframe.drop_duplicates(inplace=True)
+                df_html = dataframe.to_html(classes="table table-striped", index=False)
+                csv_buffer = io.StringIO()
+                dataframe.to_csv(csv_buffer, index=False)
+                csv_data = csv_buffer.getvalue()
+    
+    return render_template(
+        "data_cleaning.html",
+        table_html=df_html,
+        csv_data=csv_data
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
