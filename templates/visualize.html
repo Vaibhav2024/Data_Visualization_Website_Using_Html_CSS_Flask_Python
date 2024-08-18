@@ -93,8 +93,11 @@
         <div class="plot-container">
             {% if plot_url %}
             <h3 class="text-center">Generated Plot:</h3>
-            <img src="data:image/png;base64,{{ plot_url }}" alt="Generated Plot">
-            <a href="/download_plot?plot_url={{ plot_url }}" class="btn btn-custom mt-3" style="display:inline-block; padding:10px 20px; text-decoration:none; background-color:#28a745; color:white; border-radius:5px;">Download Plot</a>
+            <img src="data:image/png;base64,{{plot_url}}" alt="Generated Plot">
+            <form method="POST" action="/download_plot">
+                <input type="hidden" name="plot_url" value="{{plot_url}}">
+                <button type="submit" class="btn btn-custom mt-3" style="display:inline-block; padding:10px 20px; text-decoration:none; background-color:#28a745; color:white; border-radius:5px;">Download Plot</button>
+            </form>
             {% endif %}
         </div>
     </div>

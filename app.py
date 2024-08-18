@@ -205,9 +205,9 @@ def download():
         download_name="table.csv"
     )
 
-@app.route('/download_plot', methods=['GET'])
+@app.route('/download_plot', methods=['POST'])
 def download_plot():
-    plot_url = request.args.get('plot_url')
+    plot_url = request.form.get('plot_url')
     if not plot_url:
         return "No plot URL provided.", 400
 
