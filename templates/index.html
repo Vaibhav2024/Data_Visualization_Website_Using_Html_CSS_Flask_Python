@@ -11,20 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 </head>
 <body>
-    <!-- Navbar -->
-    <div class="header">
-        <div class="navbar-container"> <!-- Changed class name -->
-            <div class="navbar">
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="#">Data Extraction</a></li>
-                        <li><a href="/data_cleaning">Data Cleaning</a></li>
-                        <li><a href="/visualize">Data Visualization</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+    {% include 'navbar.html' %}
 
     <!-- Main Content -->
     <div class="container">

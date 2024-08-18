@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Cleaning</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container">
         <h1>Data Cleaning</h1>
         <form action="/data_cleaning" method="post" enctype="multipart/form-data">

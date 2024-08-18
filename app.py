@@ -85,7 +85,6 @@ def index():
     response.headers['Expires'] = '0'
     return response
 
-
 @app.route('/visualize', methods=['GET', 'POST'])
 def visualize():
     if request.method == 'POST':
@@ -222,7 +221,6 @@ def download_plot():
         download_name='plot.png'
     )
 
-
 @app.route("/data_cleaning", methods=["GET", "POST"])
 def data_cleaning():
     global dataframe
@@ -234,6 +232,7 @@ def data_cleaning():
             file = request.files['file']
             if file and file.filename.endswith('.csv'):
                 try:
+                    global dataframe
                     dataframe = pd.read_csv(file)
                     # Replace 'none' strings with actual NaN values
                     dataframe.replace('none', pd.NA, inplace=True)
