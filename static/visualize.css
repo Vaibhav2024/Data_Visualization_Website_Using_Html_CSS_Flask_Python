@@ -94,3 +94,23 @@ th {
     color: #333333;
 }
 
+/* Centering the plot image and download button */
+.plot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.plot-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Space between the image and the button */
+}
+
+.plot-container form {
+    width: 50%; /* Adjust the button width */
+    margin: 0 auto; /* Center the button */
+}
