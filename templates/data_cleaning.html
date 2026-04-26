@@ -4,31 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Cleaning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 </head>
 <body>
     {% include 'navbar.html' %}
     <div class="container">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: 500;
+                        {% if category == 'error' %} background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); 
+                        {% else %} background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <h1>Data Cleaning</h1>
         <form action="/data_cleaning" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".csv" required>
-            <button type="submit">Upload</button>
+            <label for="file" style="margin-bottom:10px; display:block; color:#cbd5e1;">Upload New CSV (Optional, overrides current session data):</label>
+            <input type="file" name="file" accept=".csv">
+            <button type="submit"><i class="ph ph-upload-simple" style="margin-right: 8px;"></i>Upload</button>
         </form>
         {% if table_html %}
+            {% if profile %}
+            <div class="profile-container" style="background: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 20px;">
+                <h3 style="color: #ffffff; margin-top: 0; margin-bottom: 15px;"><i class="ph ph-chart-polar" style="margin-right: 8px; color: #6366f1;"></i>Data Profile</h3>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div style="font-size: 12px; color: #94a3b8; text-transform: uppercase;">Total Rows</div>
+                        <div style="font-size: 24px; color: #ffffff; font-weight: 600;">{{ profile.rows }}</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div style="font-size: 12px; color: #94a3b8; text-transform: uppercase;">Total Columns</div>
+                        <div style="font-size: 24px; color: #ffffff; font-weight: 600;">{{ profile.cols }}</div>
+                    </div>
+                </div>
+                <h4 style="color: #cbd5e1; margin-top: 15px; margin-bottom: 10px; font-size: 16px;">Column Details</h4>
+                <div style="max-height: 150px; overflow-y: auto; padding-right: 10px;" class="table-container">
+                    <table style="width: 100%; text-align: left; font-size: 14px; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);"><th style="padding-bottom: 8px; color: #94a3b8;">Column Name</th><th style="padding-bottom: 8px; color: #94a3b8;">Data Type</th><th style="padding-bottom: 8px; color: #94a3b8;">Missing Values</th></tr>
+                        {% for col, missing_count in profile.missing.items() %}
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 10px 0; color: #e2e8f0; font-weight: 500;">{{ col }}</td>
+                            <td style="padding: 10px 0;"><span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">{{ profile.dtypes[col] }}</span></td>
+                            <td style="padding: 10px 0; color: {% if missing_count > 0 %}#ef4444{% else %}#10b981{% endif %}; font-weight: 600;">{% if missing_count > 0 %}<i class="ph ph-warning-circle" style="margin-right:4px;"></i>{% else %}<i class="ph ph-check-circle" style="margin-right:4px;"></i>{% endif %}{{ missing_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            {% endif %}
             <div class="data-container">
                 {{ table_html|safe }}
             </div>
             <form action="/data_cleaning" method="post">
-                <button type="submit" name="action" value="remove_null_rows">Remove Null Row</button>
-                <button type="submit" name="action" value="replace_null_with_mean">Replace Null Value with Column Mean (For Columns With Numeric Value)</button>
+                <button type="submit" name="action" value="remove_null_rows"><i class="ph ph-trash" style="margin-right: 8px;"></i>Remove Null Row</button>
+                <button type="submit" name="action" value="replace_null_with_mean"><i class="ph ph-math-operations" style="margin-right: 8px;"></i>Replace Null Value with Column Mean</button>
             </form>
             <form action="/data_cleaning" method="post">
-                <button type="submit" name="action" value="remove_duplicates">Remove Duplicates</button>
+                <button type="submit" name="action" value="remove_duplicates"><i class="ph ph-copy" style="margin-right: 8px;"></i>Remove Duplicates</button>
             </form>
-            <form action="/download" method="post">
-                <input type="hidden" name="csv_data" value="{{ csv_data }}">
-                <button type="submit">Download CSV</button>
+            <form action="/download" method="GET">
+                <button type="submit"><i class="ph ph-download-simple" style="margin-right: 8px;"></i>Download CSV</button>
             </form>
         {% endif %}
     </div>

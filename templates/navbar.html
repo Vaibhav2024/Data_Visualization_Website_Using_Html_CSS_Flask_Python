@@ -1,25 +1,14 @@
-<!-- navbar.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
-</head>
-<body>
-    <!-- Navbar -->
-    <div class="header">
-        <div class="navbar-container">
-            <div class="navbar">
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="/">Data Extraction</a></li>
-                        <li><a href="/data_cleaning">Data Cleaning</a></li>
-                        <li><a href="/visualize">Data Visualization</a></li>
-                    </ul>
-                </nav>
-            </div>
+<!-- Navbar -->
+<div class="header">
+    <div class="navbar-container">
+        <div class="navbar">
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="/"><i class="ph ph-magic-wand" style="margin-right: 5px;"></i> Data Extraction</a></li>
+                    <li><a href="/data_cleaning"><i class="ph ph-broom" style="margin-right: 5px;"></i> Data Cleaning</a></li>
+                    <li><a href="/visualize"><i class="ph ph-chart-line-up" style="margin-right: 5px;"></i> Data Visualization</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
-</body>
-</html>
+</div>

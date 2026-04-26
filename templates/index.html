@@ -7,6 +7,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Table Extractor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 </head>
@@ -15,6 +19,19 @@
 
     <!-- Main Content -->
     <div class="container">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: 500;
+                        {% if category == 'error' %} background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); 
+                        {% else %} background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <h1>Extract Table from Website or CSV File</h1>
         <form method="POST" enctype="multipart/form-data">
             <label for="url">Website URL (or leave empty if uploading a file):</label>
@@ -29,16 +46,15 @@
             <label for="selected_columns">Columns to Extract (Optional, comma-separated):</label>
             <input type="text" id="selected_columns" name="selected_columns">
             
-            <button type="submit">Extract Data</button>
+            <button type="submit"><i class="ph ph-magic-wand" style="margin-right: 8px;"></i>Extract Data</button>
         </form>
 
         {% if table_html %}
         <div class="table-container">
             {{ table_html | safe }}
         </div>
-        <form method="POST" action="/download">
-            <input type="hidden" name="csv_data" value="{{ csv_data.getvalue() }}">
-            <button type="submit">Download CSV</button>
+        <form method="GET" action="/download">
+            <button type="submit"><i class="ph ph-download-simple" style="margin-right: 8px;"></i>Download CSV</button>
         </form>
         {% endif %}
     </div>

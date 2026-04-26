@@ -1,24 +1,26 @@
 .header {
-    background: linear-gradient(90deg, #ff7e5f, #feb47b); /* Vibrant gradient background */
-    padding: 20px; /* Increased padding for a more prominent header */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
-    position: sticky; /* Makes the navbar sticky at the top */
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    position: sticky;
     top: 0;
-    z-index: 1000; /* Ensures the navbar is always on top */
+    z-index: 1000;
 }
 
 .navbar-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Space out elements */
+    justify-content: center;
     align-items: center;
 }
 
 .navbar {
     display: flex;
     justify-content: center;
-    background-color: transparent; /* No background color for the navbar */
+    background-color: transparent;
 }
 
 .navbar nav ul {
@@ -26,7 +28,7 @@
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 15px; /* Added space between menu items */
+    gap: 20px;
 }
 
 .navbar nav ul li {
@@ -34,24 +36,27 @@
 }
 
 .navbar a {
-    color: #ffffff; /* White text color */
+    color: #e2e8f0;
     text-decoration: none;
-    padding: 12px 20px; /* Adjusted padding for a more button-like appearance */
-    display: block;
-    border-radius: 50px; /* Fully rounded buttons */
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease; /* Added box-shadow transition */
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
 }
 
 .navbar a:hover {
-    background-color: rgba(255, 255, 255, 0.3); /* Lighter semi-transparent on hover */
-    color: #fff; /* Keep text white */
-    transform: scale(1.1); /* Slight zoom on hover */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover for a pop effect */
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .navbar a:active {
-    transform: scale(1.05); /* Slight shrink on click */
-    background-color: rgba(255, 255, 255, 0.4); /* Slightly different color on click */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Less shadow on click */
+    transform: translateY(0);
 }

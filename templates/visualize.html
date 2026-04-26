@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualize Data</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='visualize.css') }}">
 </head>
@@ -12,6 +16,19 @@
     {% include 'navbar.html' %}
 
     <div class="container">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: 500;
+                        {% if category == 'error' %} background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); 
+                        {% else %} background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <h1 class="text-center">Visualize Your Data</h1>
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
@@ -58,21 +75,19 @@
             </div>
 
             <div class="form-group">
-                <label for="csv_file" class="form-label">Upload CSV File:</label>
-                <input type="file" class="form-control" id="csv_file" name="csv_file" accept=".csv" required>
+                <label for="csv_file" class="form-label">Upload New CSV (Optional, overrides current session):</label>
+                <input type="file" class="form-control" id="csv_file" name="csv_file" accept=".csv">
             </div>
 
-            <button type="submit" class="btn btn-custom">Generate Plot</button>
+            <button type="submit" class="btn btn-custom"><i class="ph ph-chart-bar" style="margin-right: 8px;"></i>Generate Plot</button>
         </form>
 
         <div class="plot-container">
-            {% if plot_url %}
-            <h3 class="text-center">Generated Plot:</h3>
-            <img src="data:image/png;base64,{{plot_url}}" alt="Generated Plot">
-            <form method="POST" action="/download_plot">
-                <input type="hidden" name="plot_url" value="{{plot_url}}">
-                <button type="submit" class="btn btn-custom mt-3">Download Plot</button>
-            </form>
+            {% if plot_html %}
+            <h3 class="text-center" style="margin-bottom: 20px;">Generated Plot:</h3>
+            <div style="width: 100%; overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 8px; padding: 10px;">
+                {{ plot_html | safe }}
+            </div>
             {% endif %}
         </div>
     </div>

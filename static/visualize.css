@@ -1,6 +1,9 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #ff5f6d, #ffc371); /* Updated to orange gradient */
+    font-family: 'Outfit', sans-serif;
+    background: #0f172a; /* Fallback */
+    background: radial-gradient(circle at 15% 50%, rgba(30, 20, 60, 1) 0%, rgba(15, 23, 42, 1) 100%), 
+                radial-gradient(circle at 85% 30%, rgba(45, 20, 60, 1) 0%, transparent 50%);
+    color: #f1f5f9;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,107 +13,165 @@ body {
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     max-width: 800px;
     width: 90%;
-    margin-top: 100px;
+    margin-top: 80px;
+    margin-bottom: 50px;
 }
 
 h1 {
-    font-size: 28px;
-    margin-bottom: 25px;
+    font-size: 32px;
+    margin-bottom: 30px;
     text-align: center;
-    color: #333333;
+    color: #ffffff !important;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-input[type="file"]:focus {
-    background-color: #ffffff;
-    transform: translateY(-2px);
+label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #cbd5e1 !important;
+    font-size: 15px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(45deg, #ff6a00, #ee0979);
+/* Override Bootstrap .form-control */
+.form-control {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    margin-bottom: 24px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 15px !important;
+    transition: all 0.3s ease !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+}
+
+select.form-control {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23cbd5e1%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem top 50% !important;
+    background-size: .65em auto !important;
+}
+
+select.form-control option {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+}
+
+.form-control:focus {
+    outline: none !important;
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+}
+
+input[type="file"].form-control::file-selector-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-right: 16px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.3s ease, transform 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    background: linear-gradient(45deg, #ee0979, #ff6a00);
-    transform: translateY(-3px);
+input[type="file"].form-control::file-selector-button:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.data-container {
-    max-height: 300px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+button.btn, button[type="submit"] {
+    width: 100% !important;
+    padding: 14px !important;
+    background: linear-gradient(135deg, #6366f1, #a855f7) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    font-family: 'Outfit', sans-serif !important;
+    cursor: pointer !important;
+    margin-top: 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+button.btn:hover, button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6) !important;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+button.btn:active, button[type="submit"]:active {
+    transform: translateY(0) !important;
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
-    font-size: 14px;
-    background-color: #fafafa;
-}
-
-th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    color: #333333;
-}
-
-/* Centering the plot image and download button */
 .plot-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.plot-container h3 {
+    margin-bottom: 20px;
+    color: #cbd5e1;
+    font-weight: 500;
 }
 
 .plot-container img {
     max-width: 100%;
     height: auto;
-    margin-bottom: 20px; /* Space between the image and the button */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background-color: #fff; /* Ensure plot has white background if transparent png */
 }
 
 .plot-container form {
-    width: 50%; /* Adjust the button width */
-    margin: 0 auto; /* Center the button */
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Bootstrap utility overrides */
+.text-center {
+    text-align: center !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.form-group {
+    margin-bottom: 0px; /* Space handled by inputs */
 }
