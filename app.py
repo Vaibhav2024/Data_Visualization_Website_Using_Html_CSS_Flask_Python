@@ -12,7 +12,7 @@ app.secret_key = 'super_secret_key_for_flash_messages'
 
 UPLOAD_FOLDER = '/tmp/uploads'
 if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def get_session_file():
     session_id = session.get('session_id')
