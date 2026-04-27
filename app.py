@@ -10,7 +10,7 @@ import plotly.io as pio
 app = Flask(__name__)
 app.secret_key = 'super_secret_key_for_flash_messages'
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/tmp/uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
